@@ -4,7 +4,7 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 
-# Load the model
+#model loading
 net = cv2.dnn.readNetFromTensorflow("graph_opt.pb")  
 inWidth = 368
 inHeight = 368
@@ -26,8 +26,8 @@ POSE_PARTS = [
 ]
 
 
-st.title("Human Pose Estimation App")
-st.write("Upload an image, and the app will estimate the human pose using OpenCV.")
+st.title("Human Pose Estimation ")
+st.write("Upload an image, for estimating wiestime the human pose using OpenCV.")
 
 
 uploaded_file = st.file_uploader("Choose an image file", type=["jpg", "jpeg", "png"])
@@ -41,7 +41,7 @@ def posedetector(frame):
     frameHeight = frame.shape[0]
     net.setInput(cv2.dnn.blobFromImage(frame, 1.0, (inWidth, inHeight), (127.5, 127.5, 127.5), swapRB=True, crop=False))
     out = net.forward()
-    out = out[:, :19, :, :]  # Extract first 19 body parts
+    out = out[:, :19, :, :]  
 
     assert len(BODY_PARTS) == out.shape[1], "Mismatch in BODY_PARTS and output shape"
 
